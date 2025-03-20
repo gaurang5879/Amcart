@@ -15,7 +15,6 @@ jobs:
     strategy:
       matrix:
         service: [AuthService, CatalogService, SearchService]
-        app-name: ["auth-service-api", "catalog-service-api", "search-service-api"]
 
     steps:
       - name: Checkout Repository
@@ -44,6 +43,6 @@ jobs:
       - name: Deploy to Azure App Service (Windows)
         uses: azure/webapps-deploy@v2
         with:
-          app-name: ${{ matrix.app-name }}
-          publish-profile: ${{ secrets['AZURE_' + matrix.service + '_PUBLISH_PROFILE'] }}
+          app-name: ${{ matrix.service == 'AuthService' && 'auth-service-api' || matrix.service == 'CatalogService' && 'catalog-service-api' || 'search-service-api' }}
+          publish-profile: ${{ matrix.service == 'AuthService' && secrets.AZURE_AUTH_SERVICE_PUBLISH_PROFILE || matrix.service == 'CatalogService' && secrets.AZURE_CATALOG_SERVICE_PUBLISH_PROFILE || secrets.AZURE_SEARCH_SERVICE_PUBLISH_PROFILE }}
           package: ${{ runner.temp }}/publish-${{ matrix.service }}
