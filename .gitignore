@@ -1,0 +1,99 @@
+﻿################################################################################
+# General
+################################################################################
+
+# Ignore system-specific files
+.DS_Store
+Thumbs.db
+
+################################################################################
+# Backend (.NET) Ignore Rules
+################################################################################
+
+# Ignore build artifacts
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
+
+# Ignore user-specific files
+.vscode/
+.idea/
+*.suo
+*.user
+*.csproj.user
+.vs/
+
+# Ignore environment-specific files
+.env
+secrets.json
+
+# Ignore database files (for SQLite)
+*.db
+*.db-journal
+
+# Ignore dependency cache
+packages/
+node_modules/
+project.lock.json
+artifacts/
+
+# Ignore Azure specific files
+appsettings.Local.json
+appsettings.Development.json
+
+################################################################################
+# Frontend (React) Ignore Rules
+################################################################################
+
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build output
+build/
+dist/
+.cache/
+
+# Logs
+logs/
+*.log
+npm-debug.log
+yarn-debug.log
+
+# Environment variables
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Ignore test coverage output
+coverage/
+
+# Ignore Editor Configurations
+.eslintcache
+.prettiercache
+
+# Ignore JetBrains IDE files
+.idea/
+*.iml
+
+################################################################################
+# Shared Libraries
+################################################################################
+
+# Ignore compiled shared libraries
+Shared/bin/
+Shared/obj/
+
+################################################################################
+# Git and CI/CD
+################################################################################
+
+# Ignore GitHub Actions workflows that may generate artifacts
+.github/workflows/*.log
