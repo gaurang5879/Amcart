@@ -28,17 +28,17 @@ jobs:
       - name: Restore Dependencies
         run: |
           cd backend/${{ matrix.service }}
-          dotnet restore
+          dotnet restore ${{ matrix.service }}.csproj
 
       - name: Build Application
         run: |
           cd backend/${{ matrix.service }}
-          dotnet build --configuration Release --no-restore
+          dotnet build --configuration Release --no-restore ${{ matrix.service }}.csproj
 
       - name: Publish Application
         run: |
           cd backend/${{ matrix.service }}
-          dotnet publish --configuration Release --output ${{ runner.temp }}/publish-${{ matrix.service }}
+          dotnet publish --configuration Release --output ${{ runner.temp }}/publish-${{ matrix.service }} ${{ matrix.service }}.csproj
 
       - name: Deploy to Azure App Service (Windows)
         uses: azure/webapps-deploy@v2
