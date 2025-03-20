@@ -1,0 +1,38 @@
+name: Deploy .NET Microservices to Azure
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'backend/AuthService/**'
+      - 'backend/CatalogService/**'
+      - 'backend/SearchService/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [AuthService, CatalogService, SearchService]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0'
+
+      - name: Publish API
+        run: |
+          cd backend/${{ matrix.service }}
+          dotnet publish -c Release -o out
+
+      - name: Deploy to Azure
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: "your-${{ matrix.service }}-app"
+          publish-profile: ${{ secrets['AZURE_' + matrix.service + '_PUBLISH_PROFILE'] }}
+          package: "backend/${{ matrix.service }}/out"
