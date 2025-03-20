@@ -1,0 +1,49 @@
+name: Deploy .NET Web APIs to Azure (Windows)
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'backend/AuthService/**'
+      - 'backend/CatalogService/**'
+      - 'backend/SearchService/**'
+
+jobs:
+  deploy:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        service: [AuthService, CatalogService, SearchService]
+        app-name: ["auth-service-api", "catalog-service-api", "search-service-api"]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0'
+
+      - name: Restore Dependencies
+        run: |
+          cd backend/${{ matrix.service }}
+          dotnet restore
+
+      - name: Build Application
+        run: |
+          cd backend/${{ matrix.service }}
+          dotnet build --configuration Release --no-restore
+
+      - name: Publish Application
+        run: |
+          cd backend/${{ matrix.service }}
+          dotnet publish --configuration Release --output ${{ runner.temp }}/publish
+
+      - name: Deploy to Azure App Service (Windows)
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ matrix.app-name }}
+          publish-profile: ${{ secrets['AZURE_' + matrix.service + '_PUBLISH_PROFILE'] }}
+          package: ${{ runner.temp }}/publish
