@@ -24,7 +24,6 @@ namespace AuthService.API.Controllers
 
             if (token == null) return BadRequest("User registration failed");
 
-
             return Ok(new { Token = token });
         }
 
