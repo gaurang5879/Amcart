@@ -15,19 +15,19 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Setup Node.js (Matching Local Version)
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '14.20'
 
       - name: Install Dependencies
         run: |
-          cd frontend\web
+          cd frontend/web
           npm install
 
       - name: Build React App
         run: |
-          cd frontend\web
+          cd frontend/web
           npm run build
 
       - name: Deploy to Azure Static Web App
