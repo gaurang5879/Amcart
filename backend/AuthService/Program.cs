@@ -75,7 +75,7 @@ builder.Services.AddHttpClient("default")
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp",
-        policy => policy.WithOrigins("https://your-react-app.azurewebsites.net")
+        policy => policy.WithOrigins("https://agreeable-flower-0001d7f0f.6.azurestaticapps.net/")
             .AllowAnyHeader()
             .AllowAnyMethod());
 });
