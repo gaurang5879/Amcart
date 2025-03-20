@@ -39,6 +39,10 @@ jobs:
         run: |
           cd backend/${{ matrix.service }}
           dotnet publish --configuration Release --output ${{ runner.temp }}/publish-${{ matrix.service }} ${{ matrix.service }}.csproj
+          
+      - name: Debug Published Path
+        run: |
+          ls ${{ runner.temp }}/publish-${{ matrix.service }}    
 
       - name: Deploy to Azure App Service (Windows)
         uses: azure/webapps-deploy@v2
