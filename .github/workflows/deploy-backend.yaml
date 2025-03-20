@@ -39,11 +39,11 @@ jobs:
       - name: Publish Application
         run: |
           cd backend/${{ matrix.service }}
-          dotnet publish --configuration Release --output ${{ runner.temp }}/publish
+          dotnet publish --configuration Release --output ${{ runner.temp }}/publish-${{ matrix.service }}
 
       - name: Deploy to Azure App Service (Windows)
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ matrix.app-name }}
           publish-profile: ${{ secrets['AZURE_' + matrix.service + '_PUBLISH_PROFILE'] }}
-          package: ${{ runner.temp }}/publish
+          package: ${{ runner.temp }}/publish-${{ matrix.service }}
