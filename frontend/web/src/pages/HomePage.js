@@ -6,7 +6,7 @@ import CategoryMenu from "../components/CategoryMenu";
 function HomePage() {
     const categories = ["Men", "Women", "Kids"];
     const products = [
-        { id: 1, title: "ShirtNw", price: 25, image: "/images/shirt.jpg" },
+        { id: 1, title: "ShirtNw", price:30, image: "/images/shirt.jpg" },
         { id: 2, title: "Pants", price: 40, image: "/images/pants.jpg" },
     ];
     return (
